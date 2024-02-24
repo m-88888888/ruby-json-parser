@@ -58,15 +58,24 @@ class JsonParser
   end
 
   def parse
-    raise 'todo: implement parse'
-    # tokens.each do |token|
-    #   case token[:type]
-    #   when '{'
-    #     parse_object
-    #   when '['
-    #     parse_array
-    #   end
-    # end
+    token = peek
+
+    case token[:type]
+    when '{'
+      parse_object
+    when '['
+      parse_array
+    when 'STRING'
+      self.next
+    when 'NUMBER'
+      self.next
+    when 'NULL'
+      self.next
+    when 'BOOL'
+      self.next
+    else
+      raise "Unknown token: #{token[:type]}"
+    end
   end
 
   private
