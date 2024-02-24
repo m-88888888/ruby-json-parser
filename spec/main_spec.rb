@@ -70,5 +70,20 @@ RSpec.describe do
         expect(parser.send(:parse_object)).to eq({ person: { name: 'John', age: 30, car: nil }, address: 'tokyo' })
       end
     end
+
+    context '#parse_array' do
+      let(:tokens) do
+        [{:type=>"[", :value=>"["},
+        {:type=>"STRING", :value=>"hoge"},
+        {:type=>",", :value=>","},
+        {:type=>"STRING", :value=>"fuga"},
+        {:type=>"]", :value=>"]"}]
+      end
+
+      it 'parse an array' do
+        parser = JsonParser.new(tokens)
+        expect(parser.send(:parse_array)).to eq(['hoge', 'fuga'])
+      end
+    end
   end
 end
