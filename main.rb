@@ -40,9 +40,9 @@ class JsonLexer
           raise "Unknown token: #{@input[i]}"
         end
       end
-
-      tokens
     end
+
+    tokens
   end
 end
 
