@@ -109,7 +109,20 @@ class JsonParser
     object
   end
 
-  def parse_array; end
+  def parse_array
+    token = peek
+    array = []
+
+    self.next if token[:type] == '['
+
+    while token[:type] != ']'
+      array << parse
+
+      token = self.next
+    end
+
+    array
+  end
 end
 
 json = File.read('./json/nest.json')
