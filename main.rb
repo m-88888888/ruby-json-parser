@@ -28,10 +28,10 @@ class JsonLexer
         i += 1
       else
         if @input[i..i + 3] == 'true'
-          tokens << { type: 'TRUE', value: 'true' }
+          tokens << { type: 'BOOL', value: 'true' }
           i += 4
         elsif @input[i..i + 4] == 'false'
-          tokens << { type: 'FALSE', value: 'false' }
+          tokens << { type: 'BOOL', value: 'false' }
           i += 5
         elsif @input[i..i + 3] == 'null'
           tokens << { type: 'NULL', value: 'null' }

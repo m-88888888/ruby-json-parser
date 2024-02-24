@@ -25,7 +25,7 @@ RSpec.describe do
 
     it 'tokenizes boolean values' do
       lexer = JsonLexer.new('[true, false]')
-      expect(lexer.tokenize).to include({type: 'TRUE', value: 'true'}, {type: 'FALSE', value: 'false'})
+      expect(lexer.tokenize).to include({type: 'BOOL', value: 'true'}, {type: 'BOOL', value: 'false'})
     end
 
     it 'tokenizes null value' do
