@@ -91,7 +91,27 @@ class JsonParser
     @tokens[@index - 1]
   end
 
-  def parse_object; end
+  def parse_object
+    token = peek
+    object = {}
+
+    self.next if token[:type] == '{'
+
+    while token[:type] != '}'
+      key_token = self.next
+      colon_token = self.next
+
+      unless key_token[:type] == 'STRING' || colon_token[:type] == ':'
+        raise 'Error: a pair (key(string) and : token) token is expected'
+      end
+
+      object[key_token[:value].to_sym] = parse
+
+      token = self.next
+    end
+
+    object
+  end
 
   def parse_array; end
 end
