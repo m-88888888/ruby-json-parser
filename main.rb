@@ -44,7 +44,6 @@ class JsonLexer
 
     tokens
   end
-
 end
 
 class JsonParser
@@ -126,8 +125,10 @@ class JsonParser
   end
 end
 
-json = File.read('./json/nest.json')
-tokens = JsonLexer.new(json).tokenize
-pp tokens
-parsed_json = JsonParser.new(tokens).parse
-puts parsed_json
+Dir.glob('./json/*.json') do |file|
+  json = File.read(file)
+  pp json
+  tokens = JsonLexer.new(json).tokenize
+  parsed_json = JsonParser.new(tokens).parse
+  pp parsed_json
+end
