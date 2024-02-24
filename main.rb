@@ -53,9 +53,31 @@ pp tokens
 class JsonParser
   def initialize(tokens)
     @tokens = tokens
-
+    @index = 0
     @result = {}
   end
 
-  def parse; end
+  def parse
+    raise 'todo: implement parse'
+    # tokens.each do |token|
+    #   case token[:type]
+    #   when '{'
+    #     parse_object
+    #   when '['
+    #     parse_array
+    #   end
+    # end
+  end
+
+  private
+
+  # return the head of the token stream
+  def peek; end
+
+  # move the head of the token stream to the next token
+  def next; end
+
+  def parse_object; end
+
+  def parse_array; end
 end
