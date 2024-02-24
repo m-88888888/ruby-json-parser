@@ -38,4 +38,35 @@ RSpec.describe do
       expect(lexer.tokenize).to include({type: 'STRING', value: 'key'}, {type: ':', value: ':'}, {type: 'STRING', value: 'value'})
     end
   end
+
+  context 'JsonParser' do
+    let(:tokens) do
+      [{:type=>"{", :value=>"{"},
+       {:type=>"STRING", :value=>"person"},
+       {:type=>":", :value=>":"},
+       {:type=>"{", :value=>"{"},
+       {:type=>"STRING", :value=>"name"},
+       {:type=>":", :value=>":"},
+       {:type=>"STRING", :value=>"John"},
+       {:type=>",", :value=>","},
+       {:type=>"STRING", :value=>"age"},
+       {:type=>":", :value=>":"},
+       {:type=>"NUMBER", :value=>30},
+       {:type=>",", :value=>","},
+       {:type=>"STRING", :value=>"car"},
+       {:type=>":", :value=>":"},
+       {:type=>"NULL", :value=>"null"},
+       {:type=>"}", :value=>"}"},
+       {:type=>",", :value=>","},
+       {:type=>"STRING", :value=>"address"},
+       {:type=>":", :value=>":"},
+       {:type=>"STRING", :value=>"tokyo"},
+       {:type=>"}", :value=>"}"}]
+    end
+
+    it 'parse an object' do
+      parser = JsonParser.new(tokens)
+      expect(parser.send(:parse_object)).to eq({ person: { name: 'John', age: 30, car: nil }, address: 'tokyo' })
+    end
+  end
 end
