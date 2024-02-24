@@ -72,10 +72,15 @@ class JsonParser
   private
 
   # return the head of the token stream
-  def peek; end
+  def peek
+    @tokens[@index]
+  end
 
   # move the head of the token stream to the next token
-  def next; end
+  def next
+    @index += 1
+    @tokens[@index - 1]
+  end
 
   def parse_object; end
 
