@@ -46,15 +46,10 @@ class JsonLexer
   end
 end
 
-json = File.read('./json/nest.json')
-tokens = JsonLexer.new(json).tokenize
-pp tokens
-
 class JsonParser
   def initialize(tokens)
     @tokens = tokens
     @index = 0
-    @result = {}
   end
 
   def parse
@@ -66,13 +61,14 @@ class JsonParser
     when '['
       parse_array
     when 'STRING'
-      self.next
+      self.next[:value]
     when 'NUMBER'
-      self.next
+      self.next[:value]
     when 'NULL'
-      self.next
+      self.next[:value]
+      nil
     when 'BOOL'
-      self.next
+      self.next[:value] == 'true'
     else
       raise "Unknown token: #{token[:type]}"
     end
@@ -115,3 +111,9 @@ class JsonParser
 
   def parse_array; end
 end
+
+json = File.read('./json/nest.json')
+tokens = JsonLexer.new(json).tokenize
+pp tokens
+parsed_json = JsonParser.new(tokens).parse
+puts parsed_json
