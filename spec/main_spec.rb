@@ -23,6 +23,11 @@ RSpec.describe do
       expect(lexer.tokenize).to include({type: 'NUMBER', value: 1}, {type: ',', value: ','}, {type: 'NUMBER', value: 2})
     end
 
+    it 'tokenizes a number include float ' do
+      lexer = JsonLexer.new('{ "discount": 0.12 }')
+      expect(lexer.tokenize).to include({type: 'NUMBER', value: 0.12})
+    end
+
     it 'tokenizes boolean values' do
       lexer = JsonLexer.new('[true, false]')
       expect(lexer.tokenize).to include({type: 'BOOL', value: 'true'}, {type: 'BOOL', value: 'false'})

@@ -20,10 +20,10 @@ class JsonLexer
         i += 1 while @input[i] != '"'
         tokens << { type: 'STRING', value: @input[start + 1...i] }
         i += 1
-      when '0'..'9'
+      when '0'..'9', '.'
         start = i
-        i += 1 while @input[i] =~ /[0-9]/
-        tokens << { type: 'NUMBER', value: @input[start...i].to_i }
+        i += 1 while @input[i] =~ /[0-9]/ || @input[i] == '.'
+        tokens << { type: 'NUMBER', value: @input[start...i].to_f }
       when /\s/
         i += 1
       else
@@ -44,6 +44,7 @@ class JsonLexer
 
     tokens
   end
+
 end
 
 class JsonParser
